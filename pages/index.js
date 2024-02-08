@@ -2,12 +2,14 @@ import Head from "next/head";
 import Image from "next/image";
 import toko from "../public/foto/toko-crop.png";
 import pickup from "../public/foto/pickup.jpg";
-import Navbar from "../components/navbar";
-import ButtonCyan from "../components/buttonCyan";
-import ButtonWhite from "../components/buttonWhite";
+import dynamic from "next/dynamic";
+import Link from "next/link";
+const Navbar = dynamic(() => import("./components/navbar"), {ssr: false});
+const Gmaps = dynamic(()=> import("./components/googlemaps"), {loading: ()=> {<p>Loading..</p>}, ssr: false})
+const ButtonCyan = dynamic(() => import("./components/buttonCyan"), {ssr: false});
+const ButtonWhite = dynamic(() => import("./components/buttonWhite"), {ssr: false});
 
 export default function Home() {
-  const walink = "#";
 
   return (
     <div>
@@ -21,24 +23,24 @@ export default function Home() {
         <div className="flex-grow h-full">
           <section className="w-full h-screen md:flex">
             <div className="md:w-screen">
-              <div className="text-center md:text-start md:ml-12 mt-20">
-                <h1 className="text-[21px] md:text-[32px] font-semibold">
-                  <span className="mb-3">
-                    Pesan, <span className="text-cyan-600">jemput,</span> dan
-                    antar.
-                  </span>
-                  <br />
-                  <span className="text-cyan-600">
-                    Solusi mudah
-                  </span> dengan{" "}
-                  <span className="text-cyan-600">harga pas.</span>
-                </h1>
-                <h3 className="mt-3">
-                  Laundry antar-jemput untuk kamu yang gak mau repot
-                </h3>
-                <div className="mt-10">
-                  <ButtonCyan />
+              <div className="text-center md:text-start md:ml-12 mx-3 md:mx-0 mt-20 h-full flex flex-col items-center md:items-start gap-3 md:gap-5">
+                <div>
+                  <h1 className="text-[21px] md:text-[32px] font-semibold">
+                    <span className="mb-3">
+                      Pesan, <span className="text-cyan-600">jemput,</span> dan
+                      antar.
+                    </span>
+                    <br />
+                    <span className="text-cyan-600">
+                      Solusi mudah
+                    </span> dengan{" "}
+                    <span className="text-cyan-600">harga pas.</span>
+                  </h1>
+                  <h3 className="mt-3">
+                    Laundry antar-jemput untuk kamu yang gak mau repot
+                  </h3>
                 </div>
+                <ButtonCyan/>
               </div>
             </div>
             <div className="flex justify-end w-screen mt-20 md:mt-0">
@@ -66,13 +68,13 @@ export default function Home() {
                     Kami melayani antar-jemput pakaian{" "}
                     <strong>tanpa ongkir</strong> di wilayah Pangandaran.
                   </h2>
-                  <ButtonWhite />
+                  <ButtonWhite/>
                 </div>
               </div>
             </div>
           </section>
-          <section className="w-full min-h-screen flex flex-col justify-center items-center">
-            <div className="flex flex-col justify-center items-center mx-0 md:mx-10 mt-20">
+          <section className="w-full md:min-h-screen flex flex-col justify-center items-center">
+            <div className="flex flex-col justify-center items-center mx-0 md:mx-12 mt-20">
               <h2 className="text-[21px] md:text-[28px] font-semibold">
                 Layanan Kami
               </h2>
@@ -92,13 +94,13 @@ export default function Home() {
                     </div>
                   </div>
                   <div className="flex justify-center items-center h-[200px]">
-                    <ol>
+                    <ul>
                       <li>Gratis ongkir antar-jemput</li>
                       <li>Cuci dan strika</li>
                       <li>3 hari selesai (7 hari kerja)</li>
                       <li>Dikemas plastik</li>
                       <li>Gratis komplain</li>
-                    </ol>
+                    </ul>
                   </div>
                 </div>
                 <div className="bg-white h-[419px] w-[283px] shadow-xl rounded-2xl">
@@ -174,10 +176,10 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-              <h3 className="text-cyan-600 mt-[100px]">Lihat lebih banyak</h3>
+              <Link href="/price" className="text-cyan-600 mt-[100px]">Lihat lebih banyak</Link>
             </div>
           </section>
-          <section className="w-full min-h-screen flex flex-col justify-center items-center">
+          <section className="w-full md:min-h-screen flex flex-col justify-center items-center">
             <div className="flex flex-col justify-center items-center mt-10">
               <div
                 id="judul"
@@ -242,28 +244,24 @@ export default function Home() {
               </div>
             </div>
           </section>
-          <section className="w-full min-h-screen">
+          <section className="w-full md:min-h-screen mb-12">
             <div className="flex flex-col justify-center items-center my-[50px]">
               <h2 className="text-[21px] md:text-[28px] font-semibold">
                 Alamat Kami
               </h2>
-              <div className="w-full max-w-[900px] h-[450px] bg-blue-300 rounded-md mt-10">
-                <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3954.07310225108!2d108.60428917357834!3d-7.675290475972016!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6597d6e45a9c8b%3A0x44293c7324e50bc!2sMINISYA%20LAUNDRY!5e0!3m2!1sid!2sid!4v1706005980621!5m2!1sid!2sid"
-                  width="100%"
-                  height="100%"
-                  style={{ border: 0 }}
-                  allowFullscreen=""
-                  loading="lazy"
-                  referrerpolicy="no-referrer-when-downgrade"
-                ></iframe>
-              </div>
             </div>
+            <Gmaps/>
           </section>
         </div>
       </main>
 
-      <footer></footer>
+      <footer>
+        <section className="footer w-full bg-cyan-600">
+          <div>
+
+          </div>
+        </section>
+      </footer>
     </div>
   );
 }
