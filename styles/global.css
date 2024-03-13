@@ -25,3 +25,11 @@ img {
 ul {
   list-style: disc;
 }
+
+tr {
+  height: 50px;
+}
+
+.blue-table {
+  background-color: rgba(140, 206, 234, 0.2);
+}

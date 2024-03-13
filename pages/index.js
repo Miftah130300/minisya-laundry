@@ -4,22 +4,38 @@ import toko from "../public/foto/toko-crop.png";
 import pickup from "../public/foto/pickup.jpg";
 import dynamic from "next/dynamic";
 import Link from "next/link";
+import { useState } from "react";
 const Navbar = dynamic(() => import("./components/navbar"), {ssr: false});
 const Gmaps = dynamic(()=> import("./components/googlemaps"), {loading: ()=> {<p>Loading..</p>}, ssr: false})
 const ButtonCyan = dynamic(() => import("./components/buttonCyan"), {ssr: false});
 const ButtonWhite = dynamic(() => import("./components/buttonWhite"), {ssr: false});
+const Footer = dynamic(()=> import("./components/footer"), {ssr: false})
 
 export default function Home() {
-
+  const [burgerClick, onBurgerClick] = useState(false)
+  const toggled = () => {
+    onBurgerClick(!burgerClick)
+  }
   return (
     <div>
+    {burgerClick &&
+      <div className="flex flex-col fixed gap-5 text-20 items-center text-center bg-cyan-600 h-full w-[50vw]">
+        <h1 className="my-3 text-white">Minisya Laundry</h1>
+        <div className="p-3 flex flex-col gap-3 text-white">
+          <Link href={'/'} className="hover:text-cyan-600">Halaman utama</Link>
+          <Link href={'/price'} className="hover:text-cyan-600">Layanan & Harga</Link>
+          <a className="hover:text-cyan-600">Kontak kami</a>
+          <ButtonWhite/>
+        </div>
+      </div>
+    }
       <Head>
         <title>Laundry Antar-Jemput Pangandaran | Gratis Ongkir</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main>
-        <Navbar />
+        <Navbar toggled={toggled} />
         <div className="flex-grow h-full">
           <section className="w-full h-screen md:flex">
             <div className="md:w-screen">
@@ -66,7 +82,7 @@ export default function Home() {
                 <div className="max-w-[520px] max-h-[328px] flex flex-col justify-between gap-10 md:gap-0">
                   <h2 className="text-[21px] md:text-[28px] text-white mt-3">
                     Kami melayani antar-jemput pakaian{" "}
-                    <strong>tanpa ongkir</strong> di wilayah Pangandaran.
+                    <strong className="text-[#FBD46B]">tanpa ongkir</strong> di wilayah Pangandaran.
                   </h2>
                   <ButtonWhite/>
                 </div>
@@ -254,14 +270,7 @@ export default function Home() {
           </section>
         </div>
       </main>
-
-      <footer>
-        <section className="footer w-full bg-cyan-600">
-          <div>
-
-          </div>
-        </section>
-      </footer>
+      <Footer/>
     </div>
   );
 }
