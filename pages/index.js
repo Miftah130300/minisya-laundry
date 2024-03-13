@@ -19,15 +19,15 @@ export default function Home() {
   return (
     <div>
     {burgerClick &&
-      <div className="flex flex-col fixed gap-5 text-20 items-center text-center bg-cyan-600 h-full w-[50vw]">
-        <h1 className="my-3 text-white">Minisya Laundry</h1>
-        <div className="p-3 flex flex-col gap-3 text-white">
-          <Link href={'/'} className="hover:text-cyan-600">Halaman utama</Link>
-          <Link href={'/price'} className="hover:text-cyan-600">Layanan & Harga</Link>
-          <a className="hover:text-cyan-600">Kontak kami</a>
-          <ButtonWhite/>
+        <div className="flex flex-col fixed z-20 gap-5 text-20 items-center text-center bg-cyan-600 h-full w-[50vw] p-5">
+            <h1 className="my-3 text-white text-[18px] font-semibold">Minisya Laundry</h1>
+            <div className="p-3 flex flex-col gap-3 text-white">
+            <Link href={'/'}>Halaman utama</Link>
+            <Link href={'/price'}>Layanan & Harga</Link>
+            <Link href={'/kontak'}>Kontak kami</Link>
+            <ButtonWhite/>
+            </div>
         </div>
-      </div>
     }
       <Head>
         <title>Laundry Antar-Jemput Pangandaran | Gratis Ongkir</title>
