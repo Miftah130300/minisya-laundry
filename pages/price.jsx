@@ -1,17 +1,34 @@
 import dynamic from "next/dynamic";
+import Link from "next/link";
 import { useState, useEffect } from "react";
 const Navbar = dynamic(() => import("./components/navbar"), {ssr: false});
 const Footer = dynamic(()=> import("./components/footer"), {ssr: false})
+const ButtonWhite = dynamic(() => import("./components/buttonWhite"), {ssr: false});
 
 export default function price(){
     const [isClient, setIsClient] = useState(false)
-    
     useEffect(() => {
         setIsClient(true)
     }, [])
+
+    const [open, setOpen] = useState(false)
+    const toggled = () => {
+        setOpen(!open)
+    }
     return(
     <>
-    <Navbar/>
+    {open &&
+        <div className="flex flex-col fixed z-20 gap-5 text-20 items-center text-center bg-cyan-600 h-full w-[50vw] p-5">
+            <h1 className="my-3 text-white text-[18px] font-semibold">Minisya Laundry</h1>
+            <div className="p-3 flex flex-col gap-3 text-white">
+            <Link href={'/'}>Halaman utama</Link>
+            <Link href={'/price'}>Layanan & Harga</Link>
+            <Link href={'/kontak'}>Kontak kami</Link>
+            <ButtonWhite/>
+            </div>
+        </div>
+    }
+    <Navbar toggled={toggled}/>
     <section className="w-full md:min-h-screen flex flex-col justify-center items-center">
         <div className="flex flex-col justify-center items-center mx-0 md:mx-12 my-20">
             <h1 className="text-[21px] md:text-[28px] font-semibold">
@@ -115,7 +132,7 @@ export default function price(){
                     </div>
                 </div>
             </div>
-            <h2 className="text-[21px] md:text-[28px] font-semibold mt-20">
+            <h2 className="text-[21px] md:text-[28px] font-semibold mt-20 mb-6">
                 Harga Satuan
             </h2>
             <div className="flex">
